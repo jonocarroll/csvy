@@ -8,6 +8,10 @@
 #'   type.
 #' @param file full path of file in which to save the metadata.
 #'
+#' @importFrom yaml as.yaml
+#' @importFrom jsonlite write_json
+#' @importFrom tools file_ext
+#' 
 #' @return `NULL` (invisibly)
 #' @export
 write_metadata <- function(metadata_list = NULL, file = NULL) {
