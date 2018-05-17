@@ -17,7 +17,7 @@
 write_metadata <- function(metadata_list = NULL, file = NULL) {
   
   if (is.null(metadata_list) || !is.list(metadata_list)) stop("must provide metadata_list as a list")
-  if (is.null(metadata) || !is.character(metadata)) stop("metadata (filename) must be provided")
+  if (is.null(file) || !is.character(file)) stop("metadata (filename) must be provided")
   
   ## get file extension
   ext <- tools::file_ext(file)
