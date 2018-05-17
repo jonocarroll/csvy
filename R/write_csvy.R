@@ -6,6 +6,7 @@
 #' @param sep A character string specifying a between-field separator. Passed to \code{\link[data.table]{fwrite}}.
 #' @param sep2 A character string specifying a within-field separator. Passed to \code{\link[data.table]{fwrite}}.
 #' @param comment_header A logical indicating whether to comment the lines containing the YAML front matter. Default is \code{TRUE}.
+#' @param metadata_only A logical indicating whether only the metadata should be produced (no CSV component).
 #' @param name A character string specifying a name for the dataset.
 #' @param \dots Additional arguments passed to \code{\link[data.table]{fwrite}}.
 #' @examples
@@ -30,6 +31,7 @@ function(
   sep2 = ".",
   comment_header = if (is.null(metadata)) TRUE else FALSE,
   name = as.character(substitute(x)),
+  metadata_only = FALSE,
   ...
 ) {
     
@@ -94,10 +96,13 @@ function(
     )
     
     if (!is.null(metadata)) {
-        ## write metadata to separate file
-        write_metadata(metadat_list, metadata)
+      ## write metadata to separate file
+      write_metadata(metadat_list, metadata)
+      ## don't write the csv component if metadata_only is TRUE
+      if (!metadata_only) {
         # write CSV
         data.table::fwrite(x = x, file = file, sep = sep, dec = sep2, ...)
+      }
     } else {
         # write metadata to file
         y <- paste0("---\n", yaml::as.yaml(metadata_list), "---\n")
