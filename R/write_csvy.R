@@ -94,17 +94,8 @@ function(
     )
     
     if (!is.null(metadata)) {
-        ## get file extension
-        ext <- tools::file_ext(metadata)
-        
-        # write metadata to separate metadata file
-        if (tolower(ext) %in% c("yml", "yaml")) {
-            cat(yaml::as.yaml(metadata_list), file = metadata)
-        } else if (tolower(ext) == "json") {
-            jsonlite::write_json(metadata_list, path = metadata)
-        } else {
-            warning("'metadata' should be either a .json or .yaml file.")
-        }
+        ## write metadata to separate file
+        write_metadata(metadat_list, metadata)
         # write CSV
         data.table::fwrite(x = x, file = file, sep = sep, dec = sep2, ...)
     } else {

@@ -2,6 +2,7 @@
 
 export(read_csvy)
 export(write_csvy)
+export(write_metadata)
 importFrom(data.table,fread)
 importFrom(data.table,fwrite)
 importFrom(jsonlite,fromJSON)
