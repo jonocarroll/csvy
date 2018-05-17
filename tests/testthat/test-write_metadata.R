@@ -26,3 +26,14 @@ test_that("basic json writing works", {
   expect_identical(dat$foo, "bar")
   unlink(temp_file)
 })
+
+test_that("only metadata is written", {
+  temp_dir <- tempdir()
+  temp_file <- tempfile(tmpdir = temp_dir, fileext = ".json")
+  write_csvy(mtcars, file = "mtcars.csvy", metadata = temp_file, metadata_only = TRUE)
+  dat <- jsonlite::read_json(temp_file, simplifyVector = TRUE)
+  expect_identical(dat$name, "mtcars")
+  expect_identical(unlist(dat$resources$schema$fields[[1]]$type), rep("number", 11))
+  expect_identical(length(dir(temp_dir, pattern = "*.csvy")), 0L)
+  unlink(temp_file)  
+})

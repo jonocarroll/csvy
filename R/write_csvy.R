@@ -97,7 +97,7 @@ function(
     
     if (!is.null(metadata)) {
       ## write metadata to separate file
-      write_metadata(metadat_list, metadata)
+      write_metadata(metadata_list, metadata)
       ## don't write the csv component if metadata_only is TRUE
       if (!metadata_only) {
         # write CSV
